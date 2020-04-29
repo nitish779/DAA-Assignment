@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>0/1 Knapsack</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    body {padding-top:20px ; text-align: center;; margin-top: auto;
+    background-color: #77d8d8;}
+    </style>
+  </head>
+
+  <body>
+    <h1>0/1 KNAPSACK</h1><br><br>
+
+      <button class="btn btn-success"onclick="location.href='index.html'">Go to Home Page</button> <br><br>
+      <label>ENTER THE NUMBER OF ITEMS</label><br>
+    <input type="text" id="text1" placeholder="Enter N"></input>
+      <input type="button" class="btn btn-primary" id="button1" value="ADD" onClick="add_vertices()"></input><br><br>
+      <label>ENTER THE CAPACITY</label><br>
+      <input type="text"  placeholder="Capacity" id="text4"></input><br><br>
+      <label>ENTER THE WEIGHTS</label><br>
+      <input type="text" name="" placeholder="Separated by space" id="text2"></input> <br><br>
+      <label>ENTER THE VALUES</label><br>
+        <input type="text" name="" placeholder="Separated by space" id="text3"></input><br><br>        
+  <input type="button" class="btn btn-primary" id="button2" value="ADD" onClick="add_element_to_array()"></input><br><br>
+    <input class="btn btn-primary" type="button" id="button3" value="OUTPUT" onClick="display_array()">
+      <button class="btn btn-danger" onclick="location.href='DP5.html'">RESET</button><br>
+
+
+
+  <div id="Result"></div>
+
+  <script type="text/javascript">
+
+
+        var n;
+
+        function add_vertices()
+        {
+          n=parseInt(document.getElementById("text1").value);
+           document.getElementById("text1").value = "";
+        document.getElementById("text1").placeholder = "Successfully Added!";
+      // var arr = new Array(n);
+
+    }
+    var w =[];
+    var v=[];
+      var list1,list2,weight;
+      function add_element_to_array()
+      {
+       list1=document.getElementById("text2").value;
+       list2=document.getElementById("text3").value;
+       weight=parseInt(document.getElementById("text4").value);
+
+          document.getElementById("text2").value = "";
+           document.getElementById("text3").value = "";
+            document.getElementById("text4").value = "";
+                  document.getElementById("text2").placeholder = "Successfully Added!";
+                    document.getElementById("text3").placeholder = "Successfully Added!";
+                      document.getElementById("text4").placeholder = "Successfully Added!";
+
+          var list3=list1.split(" ");
+            for(var i=0;i<list3.length;i++)
+              w.push(Number(list3[i]));
+
+              var list4=list2.split(" ");
+              for(var i=0;i<list4.length;i++)
+                v.push(Number(list4[i]));
+
+                for(var i=0;i<list3.length;i++)
+                  console.log(w[i]);
+      }
+
+
+      function max(a,b){
+        if(a>b)
+        return a;
+        return b;
+      }
+       var dp= new Array(1000);
+      function display_array()
+      {
+
+        console.log(n);
+        console.log(weight);
+
+   for(var i=0;i<=n;i++)
+   {
+     dp[i]=new Array(1000);
+   }
+
+for (var i = 0; i <= n; i++)
+{
+  for (var j = 0; j <= weight; j++)
+  {
+      if (i==0 || j==0)
+          dp[i][j] = 0;
+      else if (w[i-1] <= j){
+
+            dp[i][j] =  v[i-1]+dp[i-1][j-w[i-1]] >  dp[i-1][j] ? v[i-1]+dp[i-1][j-w[i-1]] : dp[i-1][j];
+          }
+      else
+          dp[i][j] = dp[i-1][j];
+  }
+}
+
+
+
+var e;
+e="<hr/>";
+e+="MAXIMUM VALUE IN THE KNAPSACK  : " + dp[n][weight]+"<br>";
+e+="TIME COMPLEXITY : O(N*W) <br>";
+e+="AUXILIARY SPACE : O(N*W)<br>";
+e+="N : NUMBER OF ITEMS<br>";
+e+="W : WEIGHT OF KNAPSACK";
+      document.getElementById("Result").innerHTML = e;
+    }
+
+      </script>
+
+  </body>
+</html>

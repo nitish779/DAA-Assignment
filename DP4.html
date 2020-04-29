@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Longest Common Subsequence</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    body {padding-top:50px ; text-align: center;; margin-top: auto;
+      background-color:#deff8b;}
+    </style>
+  </head>
+
+  <body>
+    <h1>LONGEST COMMON SUBSEQUENCE</h1>
+<br><br>
+      <button class="btn btn-success"onclick="location.href='index.html'">Go to Home Page</button> <br><br>
+      <label>ENTER THE FIRST STRING</label><br>
+    <input type="text" id="text1" placeholder="str1"></input><br><br>
+
+      <label>ENTER THE SECOND STRING</label><br>
+      <input type="text"  placeholder="Str2" id="text2"></input><br><br>
+
+    <input type="button" id="button1" class="btn btn-primary" value="OUTPUT" onClick="display_array()"></input>
+      <button class="btn btn-danger"onclick="location.href='DP4.html'">RESET</button><br>
+
+
+
+  <div id="Result">
+
+  </div>
+
+  <script type="text/javascript">
+      var s1;
+      var s2;
+    var dp=new Array(100);
+     function display_array()
+     {
+        s1=document.getElementById("text1").value;
+         s2=document.getElementById("text2").value;
+         document.getElementById("text1").value="";
+         document.getElementById("text2").value="";
+        var n=s1.length;
+        var m=s2.length;
+
+
+        for(var i=0;i<=n;i++)
+        dp[i]=new Array(100);
+
+        for(var i=0;i<=n;i++)
+        {
+          for(var j=0;j<=m;j++)
+
+              {
+                dp[i][j] = 0 ;
+              }
+        }
+       for(var i=1;i<=n;i++)
+       {
+         for(var j=1;j<=m;j++)
+         {
+           if(s1[i-1]==s2[j-1])
+           dp[i][j]=1+dp[i-1][j-1];
+           else
+           dp[i][j]=dp[i-1][j]>dp[i][j-1]?dp[i-1][j]:dp[i][j-1];
+         }
+       }
+       var e;
+        e="<hr/>"+"LENGTH OF LONGEST COMMON SUBSEQUENCE : " + dp[n][m]+"<br>";
+        e+="TIME COMPLEXITY : O(M*N) <br>";
+        e+="AUXILIARY SPACE : O(M*N) <br>";
+        e+="M : LENGTH OF STRING 1 <br>";
+        e+="N : LENGTH OF STRING 2 <br> "
+       document.getElementById("Result").innerHTML=e;
+     }
+     </script>
+     </body>

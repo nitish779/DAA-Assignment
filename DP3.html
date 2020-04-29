@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    body {padding-top:50px ; text-align: center;; margin-top: auto;
+    background-color:#d1f5d3;}
+    </style>
+  </head>
+
+  <body>
+    <h1>MATRIX CHAIN MULTIPLICATION</h1><br><br>
+
+      <button class="btn btn-success" onclick="location.href='index.html'">Go to Home Page</button> <br><br>
+      <label>ENTER THE NUMBER OF ELEMENTS</label><br>
+    <input type="text" id="text1" placeholder="Enter N"></input><br><br>
+
+      <label>ENTER THE CHAIN OF MATRICES</label><br>
+      <input type="text"  placeholder="Separated by space" id="text2"></input><br><br>
+
+    <input type="button" class="btn btn-primary"id="button1" value="OUTPUT" onClick="display_array()"> </input>
+      <button class="btn btn-danger"onclick="location.href='DP3.html'">RESET</button> <br/>
+
+
+
+  <div id="Result">
+
+  </div>
+
+  <script type="text/javascript">
+    var n;
+    var list,list1;
+    var arr=[];
+    var m=new Array(100);
+
+      function display_array()
+      {
+          n=parseInt(document.getElementById("text1").value);
+          list=document.getElementById("text2").value;
+          list1=list.split(" ");
+          for(var i=0;i<list1.length;i++)
+          arr.push(Number(list1[i]));
+          for( var i=0;i<n;i++)
+          m[i]=new Array(100);
+          var q;
+          document.getElementById("text1").value="";
+       document.getElementById("text2").value="";
+          for ( var i = 1; i < n; i++)
+            m[i][i] = 0;
+
+        for (var L = 2; L < n; L++)
+  {
+      for (var i = 1; i < n - L + 1; i++)
+      {
+          j = i + L - 1;
+          m[i][j] = Infinity;
+          for (var k = i; k <= j - 1; k++)
+          {
+
+              q = m[i][k] + m[k + 1][j] +
+                  arr[i - 1] * arr[k] * arr[j];
+              if (q < m[i][j])
+                  m[i][j] = q;
+          }
+      }
+  }
+  var e="<hr/>";
+  e+="Minimum Number of Multiplications : "+ m[1][n-1] + "<br>";
+e+="Time Complexity : O(N^3) <br> Auxiliary Space : O(N^2)";
+  document.getElementById("Result").innerHTML=e;
+
+      }
+     </script>
+     </body>
+ </html>

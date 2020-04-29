@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>All Pair Shorest Path</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    body {padding-top:50px ; text-align: center;; margin-top: auto;
+    background-color: #00bdaa;}
+    </style>
+  </head>
+
+  <body>
+    <h1>ALL PAIR SHORTEST PATH</h1><br><br>
+
+      <button class="btn btn-success" onclick="location.href='index.html'">Go to Home Page</button> <br><br>
+      <label>ENTER THE NUMBER OF VERTICES</label><br>
+    <input type="text" placeholder="Enter N"id="text1"></input>
+      <input class="btn btn-primary" type="button" id="button1" value="ADD" onClick="add_vertices()"></input><br><br>
+      <label>ENTER THE EDGES</label><br>
+      <input type="text" name="" placeholder="Source" id="text2"></input>
+      <input type="text" name="" placeholder="Destination" id="text3"></input>
+      <input type="text" name="" placeholder="Weight" id="text4"></input>
+        <input class="btn btn-primary" type="button" id="button2" value="ADD" onClick="add_element_to_array()"></input> <br><br>
+    <input  class="btn btn-primary"type="button" id="button3" value="OUTPUT" onClick="display_array()">
+      <button class="btn btn-danger" onclick="location.href='DP1.html'">RESET</button><br>
+
+
+
+  <div id="Result"></div>
+
+  <script type="text/javascript">
+
+
+        var n;
+        var arr = new Array(1000);
+        function add_vertices()
+        {
+          n=parseInt(document.getElementById("text1").value);
+           document.getElementById("text1").value = "";
+           document.getElementById("text1").placeholder = "Successfully Added!";
+
+      // var arr = new Array(n);
+      for(var i=0;i<n;i++)
+      {
+        arr[i]=new Array(n);
+      }
+      for(var i=0;i<n;i++)
+      {
+        for(var j=0;j<n;j++)
+        {
+          if(i==j)
+          arr[i][j]=0;
+          else{
+            arr[i][j]=Infinity;
+          }
+        }
+      }
+    }
+      var fir,sec,weight;
+      function add_element_to_array()
+      {
+       fir=parseInt(document.getElementById("text2").value);
+       sec=parseInt(document.getElementById("text3").value);
+       weight=parseInt(document.getElementById("text4").value);
+         arr[fir][sec]=weight;
+          document.getElementById("text2").value = "";
+           document.getElementById("text3").value = "";
+            document.getElementById("text4").value = "";
+           document.getElementById("text2").placeholder = "Successfully Added!";
+           document.getElementById("text3").placeholder = "Successfully Added!";
+           document.getElementById("text4").placeholder = "Successfully Added!";
+      }
+
+
+
+      function display_array()
+      {
+
+          var dist=new Array(1000);
+          for(var i=0;i<n;i++)
+          dist[i]=new Array(1000);
+           var i;
+           var j;
+           var k;
+          for (i = 0; i < n; i++)
+           for (j = 0; j < n; j++)
+               dist[i][j] = arr[i][j];
+
+               for (k = 0; k < n; k++)
+                {
+                    for (i = 0; i < n; i++)
+                    {
+                        for (j = 0; j < n; j++)
+                        {
+                            if (dist[i][k] + dist[k][j] < dist[i][j])
+                                dist[i][j] = dist[i][k] + dist[k][j];
+                        }
+                    }
+                }
+
+         var e = "<hr/>";
+
+         e+="SHORTEST DISTANCE BETWEEN EVERY PAIR "+"<br />"
+
+    for(var i=0;i<n;i++)
+  {
+    for(var j=0;j<n;j++)
+    {
+         if(dist[i][j]==Infinity)
+         e += "INF   ";
+         else {
+           e +=dist[i][j] + "   ";
+         }
+
+    }
+  e +="<br>";
+
+      }
+      e+="TIME COMPLEXITY = O(N^3)"+"<br/>";
+      e+="AUXILIARY SPACE : O(N^2)";
+      document.getElementById("Result").innerHTML = e;
+    }
+      </script>
+
+  </body>
+</html>
